@@ -1202,18 +1202,18 @@ files = [
 
 [[package]]
 name = "django"
-version = "4.1.10"
+version = "5.0.1"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.10"
 files = [
-    {file = "Django-4.1.10-py3-none-any.whl", hash = "sha256:26d0260c2fb8121009e62ffc548b2398dea2522b6454208a852fb0ef264c206c"},
-    {file = "Django-4.1.10.tar.gz", hash = "sha256:56343019a9fd839e2e5bf203daf45f25af79d5bffa4c71d56eae4f4404d82ade"},
+    {file = "Django-5.0.1-py3-none-any.whl", hash = "sha256:f47a37a90b9bbe2c8ec360235192c7fddfdc832206fcf618bb849b39256affc1"},
+    {file = "Django-5.0.1.tar.gz", hash = "sha256:8c8659665bc6e3a44fefe1ab0a291e5a3fb3979f9a8230be29de975e57e8f854"},
 ]
 
 [package.dependencies]
-asgiref = ">=3.5.2,<4"
-sqlparse = ">=0.2.2"
+asgiref = ">=3.7.0,<4"
+sqlparse = ">=0.3.1"
 tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 
 [package.extras]
@@ -1510,23 +1510,6 @@ files = [
     {file = "django-ipware-5.0.0.tar.gz", hash = "sha256:4fa5607ee85e12ee5e158bc7569ff1e134fb1579681aa1ff3f0ed04be21be153"},
     {file = "django_ipware-5.0.0-py2.py3-none-any.whl", hash = "sha256:80b52a3f571a371519cc552798f1015b934dd5dd7738bfad87e101e861bd21b8"},
 ]
-
-[[package]]
-name = "django-mjml"
-version = "1.1"
-description = "Use MJML in Django templates"
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "django-mjml-1.1.tar.gz", hash = "sha256:1a057d790227ea30fe4088eebfcfd5993e4e92840021034a1415d5b5c7997841"},
-    {file = "django_mjml-1.1-py3-none-any.whl", hash = "sha256:30a57d83c2257a998530032bb5f8fe2c1ca582ec021f884fed2798ec7ab993a9"},
-]
-
-[package.dependencies]
-django = ">=2.2,<5.0"
-
-[package.extras]
-requests = ["requests (>=2.24)"]
 
 [[package]]
 name = "django-model-utils"
@@ -5968,4 +5951,4 @@ test = ["mypy", "pre-commit", "pytest", "pytest-asyncio", "websockets (>=10.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "3.11.5"
-content-hash = "a8ce759d4c173e7109ffa689b61b842bd7ff4338dd3f91086eba278390522d4a"
+content-hash = "80057679f55126d5473ddc1f6f4404e1c1c4176e57ec80841e9bd1c40737913c"

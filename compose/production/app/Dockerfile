@@ -33,16 +33,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   libpq-dev \
   # Other tools \
   curl bash \
-  wget gnupg2 \
   gettext \
   wait-for-it \
   brotli
-
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-RUN wget -qO - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | apt-key add -
-RUN apt update
-RUN apt-get remove -y wget gnupg2
-RUN apt-get -y install postgresql-client-15
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
   && apt-get install --no-install-recommends -y nodejs \
@@ -69,11 +62,11 @@ COPY --chown=web:web . ${APP_HOME}/
 
 RUN yarn run build && rm -rf node_modules
 
-COPY --chown=web:web ./compose/production/bookmarks/entrypoint /entrypoint
+COPY --chown=web:web ./compose/production/app/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
 
-COPY --chown=web:web ./compose/production/bookmarks/start /start
+COPY --chown=web:web ./compose/production/app/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 

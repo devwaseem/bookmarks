@@ -35,48 +35,13 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 CSRF_TRUSTED_ORIGINS = Env("CSRF_TRUSTED_ORIGINS", default="").split()
 
-STATIC_ROOT = "/var/www/static"
-
-AWS_S3_SIGNATURE_VERSION = "s3v4"
-AWS_DEFAULT_ACL = "public-read"
-AWS_S3_FILE_OVERWRITE = True
-AWS_S3_VERIFY = True
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_OBJECT_PARAMETERS = {
-    "CacheControl": "max-age=86400",
-}
-AWS_LOCATION = "media"
-AWS_ACCESS_KEY_ID = Env("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = Env("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = Env("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-AWS_S3_REGION_NAME = Env("AWS_S3_REGION_NAME")
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-AWS_S3_HOST = f"{AWS_S3_REGION_NAME}.amazonaws.com"
-
-ANYMAIL = {"AMAZON_SES_CLIENT_PARAMS": {"region_name": AWS_S3_REGION_NAME}}
-
-EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
-
-THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
-
-# Uncomment to use AWS s3 for staticfiles
-# STATIC_LOCATION = "static"
-# STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
-# STATICFILES_STORAGE = (
-#     "server.settings.storage_backends.StaticStorage"
-# )
-
-
-PUBLIC_MEDIA_LOCATION = "media"
-MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
-DEFAULT_FILE_STORAGE = "server.settings.storage_backends.PublicMediaStorage"
-
+MEDIA_URL = "/media"
 
 # whitenoise
 STATICFILES_STORAGE = "whitenoise.storage.ManifestStaticFilesStorage"
 STATIC_HOST = Env("DJANGO_STATIC_HOST", str, "")
 STATIC_URL = STATIC_HOST + "/static/"
+STATIC_ROOT = "/var/www/static"
 
 
 def immutable_file_test(_, url):
@@ -87,7 +52,6 @@ def immutable_file_test(_, url):
 
 WHITENOISE_IMMUTABLE_FILE_TEST = immutable_file_test
 
-ANYMAIL = {"AMAZON_SES_CLIENT_PARAMS": {"region_name": AWS_S3_REGION_NAME}}
 
 # Django Vite
 DJANGO_VITE_DEV_MODE = False

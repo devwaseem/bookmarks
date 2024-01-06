@@ -33,10 +33,10 @@ services:
       - /data/bookmarks/static:/var/www/static:rw
       - /data/bookmarks/log:/var/log:rw
       - /data/bookmarks:/data:rw
-    depends_on:
-      - postgres
-      - redis
-      - mjml
+    # depends_on:
+      # - postgres
+      # - redis
+      # - mjml
     env_file:
       - .env
     expose:
