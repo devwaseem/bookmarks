@@ -22,8 +22,8 @@ base_settings = [
     "components/common.py",
     "components/allauth.py",
     "components/database.py",
-    "components/caches.py",
-    "components/emails.py",
+    # "components/caches.py",
+    # "components/emails.py",
     "components/logging.py",
     "components/csp.py",
     # You can even use glob:

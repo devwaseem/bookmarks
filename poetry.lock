@@ -1255,27 +1255,6 @@ requests = "*"
 requests-oauthlib = ">=0.3.0"
 
 [[package]]
-name = "django-anymail"
-version = "8.6"
-description = "Django email backends and webhooks for Amazon SES, Mailgun, Mailjet, Mandrill, Postal, Postmark, SendGrid, SendinBlue, and SparkPost"
-optional = false
-python-versions = ">=3.5"
-files = [
-    {file = "django-anymail-8.6.tar.gz", hash = "sha256:783342d49dd07d68778b81dd12a94c86e1d217463a68a85450a0513fabe31345"},
-    {file = "django_anymail-8.6-py3-none-any.whl", hash = "sha256:49d83d7c16316ca86a624097496881d59b7d71b16bf1c5211cffa5b19ef98d0c"},
-]
-
-[package.dependencies]
-boto3 = {version = "*", optional = true, markers = "extra == \"amazon_ses\""}
-django = ">=2.0"
-requests = ">=2.4.3"
-
-[package.extras]
-amazon-ses = ["boto3"]
-dev = ["flake8", "sphinx", "sphinx-rtd-theme", "tox", "twine", "wheel"]
-postal = ["cryptography"]
-
-[[package]]
 name = "django-appconf"
 version = "1.0.5"
 description = "A helper class for handling configuration defaults of packaged apps gracefully."
@@ -1736,20 +1715,20 @@ typing-extensions = "*"
 
 [[package]]
 name = "django-vite"
-version = "2.1.1"
-description = "Integration of ViteJS in a Django project."
+version = "3.0.1"
+description = "Integration of Vite in a Django project."
 optional = false
 python-versions = "*"
 files = [
-    {file = "django-vite-2.1.1.tar.gz", hash = "sha256:d095722f9d67aafbe13fabab881f3d1966099d52284570541c359fd84522c4c5"},
-    {file = "django_vite-2.1.1-py3-none-any.whl", hash = "sha256:d291dff661ad28e1380fa1e962ea9f9f9c94be793c3e3a403c8af8b8edcc5bab"},
+    {file = "django-vite-3.0.1.tar.gz", hash = "sha256:698977de63124305b0e3cf4afae5f0ffaa5ef041a336b1586b19579787dacb63"},
+    {file = "django_vite-3.0.1-py3-none-any.whl", hash = "sha256:60fbc743ce8187c545053afec0b8fe7f8e1633619c4e0433ebc4dd4f65d0d038"},
 ]
 
 [package.dependencies]
-Django = ">=1.11"
+Django = ">=3.2"
 
 [package.extras]
-dev = ["black", "flake8"]
+dev = ["black"]
 
 [[package]]
 name = "django-widget-tweaks"
@@ -5951,4 +5930,4 @@ test = ["mypy", "pre-commit", "pytest", "pytest-asyncio", "websockets (>=10.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "3.11.5"
-content-hash = "80057679f55126d5473ddc1f6f4404e1c1c4176e57ec80841e9bd1c40737913c"
+content-hash = "3f6e8d232402910a43b65e49e22ecad86c244bcc4327635d6cba3bb6beac933b"

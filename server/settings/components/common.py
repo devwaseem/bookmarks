@@ -9,7 +9,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from env import Env
 
 from django.contrib.messages import constants as messages
 from django.urls import reverse_lazy
@@ -59,13 +58,13 @@ THIRD_PARTY_APPS: list[str] = [
     # https://github.com/theatlantic/django-nested-admin
     "nested_admin",
     # https://github.com/liminspace/django-mjml
-    "mjml",
+    # "mjml",
     # https://github.com/SmileyChris/easy-thumbnails
     "easy_thumbnails",
     # https://github.com/MrBin99/django-vite
     "django_vite",
     # https://github.com/pmclanahan/django-celery-email
-    "djcelery_email",
+    # "djcelery_email",
 ]
 
 PROJECT_APPS: list[str] = [
@@ -214,12 +213,6 @@ FRONTEND_STATIC_SOURCE_DIR = BASE_DIR / "frontend"
 
 DJANGO_VITE_ASSETS_PATH = FRONTEND_STATIC_SOURCE_DIR / "static"
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-STATIC_ROOT = "static"
-
-STATIC_URL = "/static/"
-
 STATICFILES_DIRS = [DJANGO_VITE_ASSETS_PATH]
 
 STATICFILES_FINDERS = [
@@ -227,15 +220,26 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "/static"
 
-# Media files
-# Media root dir is commonly changed in production
-# (see development.py and production.py).
-# https://docs.djangoproject.com/en/3.2/topics/files/
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": "/media",
+            "base_url": "/media/",
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        "OPTIONS": {
+            "location": STATIC_ROOT,
+            "base_url": STATIC_URL,
+        },
+    },
+}
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = "media"
 
 # Security
 # https://docs.djangoproject.com/en/3.2/topics/security/
@@ -270,7 +274,13 @@ MESSAGE_TAGS = {
 }
 
 # MJML: https://github.com/liminspace/django-mjml#tcpserver-mode
-MJML_BACKEND_MODE = "tcpserver"
-MJML_TCPSERVERS = [
-    (Env("MJML_HOST"), Env("MJML_PORT", int, 28101)),
-]
+# MJML_BACKEND_MODE = "tcpserver"
+# MJML_TCPSERVERS = [
+#     (Env("MJML_HOST"), Env("MJML_PORT", int, 28101)),
+# ]
+
+DJANGO_VITE = {
+    "default": {
+        "dev_mode": True,
+    },
+}

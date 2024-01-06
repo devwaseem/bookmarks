@@ -1,7 +1,6 @@
 import logging
 import socket
 
-from server.settings.components.caches import CACHES
 from server.settings.components.common import INSTALLED_APPS, MIDDLEWARE
 from server.settings.components.csp import (
     CSP_CONNECT_SRC,
@@ -56,7 +55,6 @@ INSTALLED_APPS += [
     "nplusone.ext.django",
 ]
 
-CACHES["default"]["BACKEND"] = "django.core.cache.backends.dummy.DummyCache"
 
 # Django debug toolbar:
 # https://django-debug-toolbar.readthedocs.io

@@ -1,7 +1,5 @@
-import re
-
 from server.settings.components.logging import LOGGING
-from server.settings.components.common import INSTALLED_APPS
+from server.settings.components.common import INSTALLED_APPS, STORAGES, DJANGO_VITE
 from env import Env
 from server.settings.components.csp import (
     CSP_CONNECT_SRC,
@@ -22,7 +20,7 @@ BASE_URL = Env("DOMAIN_NAME")
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
-ALLOWED_HOSTS = Env("DJANGO_ALLOWED_HOSTS", default="").split()
+ALLOWED_HOSTS = Env.list("DJANGO_ALLOWED_HOSTS", default="")
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = "Strict"
@@ -33,28 +31,19 @@ X_FRAME_OPTIONS = "DENY"
 SECURE_HSTS_SECONDS = 300  # 5 Minutes
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
-CSRF_TRUSTED_ORIGINS = Env("CSRF_TRUSTED_ORIGINS", default="").split()
+CSRF_TRUSTED_ORIGINS = Env.list("CSRF_TRUSTED_ORIGINS", default="")
 
-MEDIA_URL = "/media"
 
-# whitenoise
-STATICFILES_STORAGE = "whitenoise.storage.ManifestStaticFilesStorage"
 STATIC_HOST = Env("DJANGO_STATIC_HOST", str, "")
 STATIC_URL = STATIC_HOST + "/static/"
 STATIC_ROOT = "/var/www/static"
 
 
-def immutable_file_test(_, url):
-    # Match filename with 12 hex digits before the extension
-    # e.g. app.db8f2edc0c8a.js
-    return re.match(r"^.+\.\w+\..+$", url)
-
-
-WHITENOISE_IMMUTABLE_FILE_TEST = immutable_file_test
+MEDIA_URL = STORAGES["default"]["OPTIONS"]["base_url"]
 
 
 # Django Vite
-DJANGO_VITE_DEV_MODE = False
+DJANGO_VITE["default"]["dev_mode"] = False
 # DJANGO_VITE_MANIFEST_PATH = DJANGO_VITE_ASSETS_PATH / "manifest.json"
 
 # Configure CSP to work with AWS s3
@@ -76,64 +65,64 @@ CSP_IMG_SRC += (
 CSP_STYLE_SRC += (STATIC_URL,)
 
 # Logging
-LOGGING["handlers"].update(  # type: ignore[attr-defined]
-    {
-        "mail_admins": {
-            "level": "ERROR",
-            "class": "django.utils.log.AdminEmailHandler",
-        },
-        "django_file": {
-            "level": "INFO",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": Env("LOG_FILE_DJANGO"),
-            "maxBytes": 1024 * 1024 * 10,  # 10 MB
-            "backupCount": 5,
-            "formatter": "console",
-        },
-        "django_security_file": {
-            "level": "INFO",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": Env("LOG_FILE_SECURITY"),
-            "maxBytes": 1024 * 1024 * 10,  # 10 MB
-            "backupCount": 5,
-            "formatter": "console",
-        },
-        "app_file": {
-            "level": "INFO",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": Env("LOG_FILE_APP"),
-            "maxBytes": 1024 * 1024 * 10,  # 10 MB
-            "backupCount": 5,
-            "formatter": "console",
-        },
-        "celery_file": {
-            "level": "INFO",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": Env("LOG_FILE_CELERY"),
-            "maxBytes": 1024 * 1024 * 10,  # 10 MB
-            "backupCount": 5,
-            "formatter": "console",
-        },
-    }
-)
+# LOGGING["handlers"].update(  # type: ignore[attr-defined]
+# {
+# "mail_admins": {
+#     "level": "ERROR",
+#     "class": "django.utils.log.AdminEmailHandler",
+# },
+# "django_file": {
+#     "level": "INFO",
+#     "class": "logging.handlers.RotatingFileHandler",
+#     "filename": Env("LOG_FILE_DJANGO"),
+#     "maxBytes": 1024 * 1024 * 10,  # 10 MB
+#     "backupCount": 5,
+#     "formatter": "console",
+# },
+# "django_security_file": {
+#     "level": "INFO",
+#     "class": "logging.handlers.RotatingFileHandler",
+#     "filename": Env("LOG_FILE_SECURITY"),
+#     "maxBytes": 1024 * 1024 * 10,  # 10 MB
+#     "backupCount": 5,
+#     "formatter": "console",
+# },
+# "app_file": {
+#     "level": "INFO",
+#     "class": "logging.handlers.RotatingFileHandler",
+#     "filename": Env("LOG_FILE_APP"),
+#     "maxBytes": 1024 * 1024 * 10,  # 10 MB
+#     "backupCount": 5,
+#     "formatter": "console",
+# },
+# "celery_file": {
+#     "level": "INFO",
+#     "class": "logging.handlers.RotatingFileHandler",
+#     "filename": Env("LOG_FILE_CELERY"),
+#     "maxBytes": 1024 * 1024 * 10,  # 10 MB
+#     "backupCount": 5,
+#     "formatter": "console",
+# },
+# }
+# )
 LOGGING["loggers"] = {
     "django.server": {
-        "handlers": ["django_file", "mail_admins"],
+        "handlers": ["console"],
         "propagate": True,
         "level": "INFO",
     },
     "django.security": {
-        "handlers": ["django_security_file", "mail_admins"],
+        "handlers": ["console"],
         "level": "WARNING",
         "propagate": True,
     },
-    "celery": {
-        "handlers": ["celery_file", "mail_admins"],
-        "level": "INFO",
-        "propagate": True,
-    },
-    "src": {
-        "handlers": ["app_file", "mail_admins"],
+    # "celery": {
+    #     "handlers": ["console"],
+    #     "level": "INFO",
+    #     "propagate": True,
+    # },
+    "server": {
+        "handlers": ["console"],
         "level": "INFO",
         "propagate": True,
     },

@@ -47,16 +47,16 @@
 		reverse_proxy web:3000
 	}
 
-	handle_path /static/* {
-		# STATIC_ROOT
-		root * /var/www/static
-		file_server {
-			precompressed zstd br gzip
-		}
-		header {
-			Cache-Control "public, max-age=31536000"
-		}
-	}
+	# handle_path /static/* {
+	# 	# STATIC_ROOT
+	# 	root * /var/www/static
+	# 	file_server {
+	# 		precompressed zstd br gzip
+	# 	}
+	# 	header {
+	# 		Cache-Control "public, max-age=31536000"
+	# 	}
+	# }
 
 	# encode zstd gzip
 }

@@ -90,6 +90,12 @@ RUN chmod +x /start-celery-flower
 
 RUN chown -R web:web ${APP_HOME}
 
+RUN mkdir -p /var/log \
+  && mkdir -p /var/log/django
+
+RUN chown -R web:web /var/log
+
 USER web
+
 
 ENTRYPOINT ["/entrypoint"]
