@@ -9,15 +9,13 @@ services:
       - ./compose/production/caddy/Caddyfile:/etc/caddy/Caddyfile  # configuration
       - caddy-config:/config  # configuration autosaves
       - caddy-data:/data  # saving certificates
-      - /data/static:/var/www/static:ro # serving django's statics
-      - /data/log:/var/log:rw
+      - /data/bookmarks/static:/var/www/static:ro # serving django's statics
+      - /data/bookmarks/log:/var/log:rw
     env_file:
       - .env
     ports:
       - "80:80/tcp"
-      - "80:80/udp"
       - "443:443/tcp"
-      - "443:443/udp"
     depends_on:
       - web
     networks:
@@ -32,9 +30,9 @@ services:
     container_name: web_production_server
     command: /start
     volumes:
-      - /data/static:/var/www/static:rw
-      - /data/log:/var/log:rw
-      - /data:/data:rw
+      - /data/bookmarks/static:/var/www/static:rw
+      - /data/bookmarks/log:/var/log:rw
+      - /data/bookmarks:/data:rw
     depends_on:
       - postgres
       - redis
@@ -47,74 +45,74 @@ services:
       - webnet
       - proxynet
 
-  celery_workers:
-    <<: *web
-    container_name: "celery_workers"
-    command: /start-celery-workers
-    environment:
-      - CELERY_QUEUES=celery,emails
-      - CELERY_CONCURRENCY=1
+  # celery_workers:
+  #   <<: *web
+  #   container_name: "celery_workers"
+  #   command: /start-celery-workers
+  #   environment:
+  #     - CELERY_QUEUES=celery,emails
+  #     - CELERY_CONCURRENCY=1
+  #
+  # celery_beat:
+  #   <<: *web
+  #   container_name: "celery_beat"
+  #   command: /start-celery-beat
 
-  celery_beat:
-    <<: *web
-    container_name: "celery_beat"
-    command: /start-celery-beat
 
+  # celery_flower:
+  #   image: mher/flower:latest
+  #   depends_on:
+  #     - "redis"
+  #     - "web"
+  #     - "celery_workers"
+  #   env_file:
+  #     - .env
+  #   expose:
+  #     - "5555"
+  #   networks:
+  #     - webnet
+  #     - proxynet
 
-  celery_flower:
-    image: mher/flower:latest
-    depends_on:
-      - "redis"
-      - "web"
-      - "celery_workers"
-    env_file:
-      - .env
-    expose:
-      - "5555"
-    networks:
-      - webnet
-      - proxynet
+  # redis:
+  #   restart: unless-stopped
+  #   image: redis:6.2-alpine
+  #   container_name: redis_production
+  #   volumes:
+  #     - redis-data:/data
+  #   expose:
+  #     - "6379"
+  #   networks:
+  #     - webnet
 
-  redis:
-    restart: unless-stopped
-    image: redis:6.2-alpine
-    container_name: redis_production
-    volumes:
-      - redis-data:/data
-    expose:
-      - "6379"
-    networks:
-      - webnet
-
-  postgres:
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: compose/production/postgres/Dockerfile
-    container_name: web_production_postgres
-    volumes:
-      - /data/postgresql/data:/var/lib/postgresql/data
-      - /data:/data:rw
-      - /data/db-backups:/backups
-    env_file:
-      - .env
-    expose:
-      - "5432"
-    networks:
-      - webnet
-
-  mjml:
-    image: liminspace/mjml-tcpserver:0.11
-    container_name: mjml_tcpserver_production
-    restart: unless-stopped
-    environment:
-      HOST: "0.0.0.0"
-      PORT: "28101"
-      MJML_ARGS: "--mjml.minify=true --mjml.validationLevel=strict"
-    expose:
-      - "28101"
-    networks:
-      - webnet
+  # postgres:
+  #   restart: unless-stopped
+  #   build:
+  #     context: .
+  #     dockerfile: compose/production/postgres/Dockerfile
+  #   container_name: web_production_postgres
+  #   volumes:
+  #     - /data/postgresql/data:/var/lib/postgresql/data
+  #     - /data:/data:rw
+  #     - /data/db-backups:/backups
+  #   env_file:
+  #     - .env
+  #   expose:
+  #     - "5432"
+  #   networks:
+  #     - webnet
+  #
+  # mjml:
+  #   image: liminspace/mjml-tcpserver:0.11
+  #   container_name: mjml_tcpserver_production
+  #   restart: unless-stopped
+  #   environment:
+  #     HOST: "0.0.0.0"
+  #     PORT: "28101"
+  #     MJML_ARGS: "--mjml.minify=true --mjml.validationLevel=strict"
+  #   expose:
+  #     - "28101"
+  #   networks:
+  #     - webnet
 
 volumes:
   caddy-config:
