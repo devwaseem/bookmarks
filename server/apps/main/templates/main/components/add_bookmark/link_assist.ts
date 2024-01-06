@@ -4,7 +4,9 @@ Alpine.data('AddBookmarkLinkAssist', () => ({
     title: null,
     link: null,
     init() {
+        //@ts-ignore
         this.link = this.$refs.link.value;
+        //@ts-ignore
         this.title = this.$refs.title.value;
         console.log(this.link);
 

@@ -37,7 +37,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   wait-for-it \
   brotli
 
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
   && apt-get install --no-install-recommends -y nodejs \
   && npm install -g npm@9.1.2 \
   && npm install -g yarn
@@ -56,12 +56,14 @@ COPY --chown=web:web ./poetry.lock ./pyproject.toml ${APP_HOME}/
 RUN cd ${APP_HOME} && poetry config virtualenvs.create false \
   && poetry install --without local --no-interaction --no-ansi
 
+
+COPY --chown=web:web ./yarn.lock ./package.json ${APP_HOME}/
+
 RUN yarn install
 
 COPY --chown=web:web . ${APP_HOME}/
 
-RUN yarn run build
-RUN rm -rf node_modules
+RUN yarn run build && rm -rf node_modules
 
 COPY --chown=web:web ./compose/production/app/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint

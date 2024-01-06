@@ -100,6 +100,8 @@ document.addEventListener('toast', (event) => {
 
 window.Alpine = Alpine;
 window.$byId = $byId;
+
+//@ts-ignore
 window.openLinkInNewWindow = openLinkInNewWindow;
 
 Alpine.plugin(focus);

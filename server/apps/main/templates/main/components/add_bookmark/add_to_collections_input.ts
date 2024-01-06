@@ -9,6 +9,7 @@ Alpine.data('AddToCollectionsInput', () => ({
         this.$watch('existingCollections', () => {
             const collections_input = $byId('id_collections');
             if (collections_input) {
+                //@ts-ignore
                 collections_input.value = this.existingCollections.join(',');
             }
         });

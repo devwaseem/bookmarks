@@ -1,3 +1,4 @@
-import { AlpineComponent } from "alpinejs";
+import { AlpineComponent } from 'alpinejs';
 
-export type AlpineDataCallback = (...initialStateArgs: unknown[]) => AlpineComponent
+//@ts-ignore
+export type AlpineDataCallback = (...initialStateArgs: unknown[]) => AlpineComponent;
