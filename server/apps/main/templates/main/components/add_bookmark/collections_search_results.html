@@ -1,0 +1,23 @@
+<div class="max-h-60 overflow-scroll rounded-lg border border-base-300 bg-base-100 shadow-sm">
+    {% if not found_exact_match and query != '' %}
+        <button type="button"
+                @click="addTag('{{ query }}')"
+                :class="doesTagExist('{{ query }}') ? 'bg-base-200' : ''  "
+                class="px-4 py-3 w-full flex flex-row justify-between items-center w-full text-left border-b border-base-300 hover:bg-base-200">
+            <span>{{ query }}</span>
+            <span class="text-gray-500 text-sm">Create new Collection</span>
+        </button>
+    {% endif %}
+    {% if bookmark_tags %}
+        <div>
+            {% for tag in bookmark_tags %}
+                <button type="button"
+                        @click="addTag('{{ tag }}')"
+                        :class="doesTagExist('{{ tag }}') ? 'bg-base-200' : ''  "
+                        class="px-4 py-3 block w-full text-left border-b border-base-300 hover:bg-base-200">
+                    {{ tag }}
+                </button>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

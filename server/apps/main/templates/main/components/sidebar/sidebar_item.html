@@ -1,0 +1,6 @@
+{% load icon %}
+<a href="{{ url }}"
+   class="px-3 py-3 flex flex-row items-center gap-3 rounded-md text-sm {% if active %} bg-base-300 {% else %} hover:bg-base-200 {% endif %}">
+    {% icon icon width="16" height="16" %}
+    <span>{{ text }}</span>
+</a>

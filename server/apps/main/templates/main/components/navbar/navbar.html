@@ -1,0 +1,28 @@
+{% load icon %}
+<nav class="z-50 fixed inset-x-0 top-0 h-[60px] px-6 flex flex-row gap-6 items-center justify-between border-b border-base-300 bg-base-100">
+    <div class="text-xl">Bmrk</div>
+    <div>
+        <div>
+            <a href="" class="btn btn-sm">Inbox</a>
+            <a class="btn btn-sm btn-ghost">Archive</a>
+            <!-- <a class="btn btn-sm btn-ghost">Journal</a> -->
+            <!-- <a class="btn btn-sm btn-ghost">Collections</a> -->
+        </div>
+    </div>
+    <div>
+        <a href="" class="btn btn-sm btn-ghost">
+            {% icon 'search' width="16" height="16" %}
+            <span>Search</span>
+        </a>
+        <a x-data
+           href="{% url 'main:widget-add-bookmark' %}"
+           hx-get="{% url 'main:widget-add-bookmark' %}"
+           hx-target="#modal_container"
+           hx-swap="beforeEnter"
+           @keyup.n.window="if(!document.querySelector(':focus')) $dispatch('click')"
+           class="btn btn-sm btn-ghost">
+            {% icon 'plus' width="16" height="16" %}
+            <span>New</span>
+        </a>
+    </div>
+</nav>

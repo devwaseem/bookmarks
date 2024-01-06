@@ -1,0 +1,61 @@
+#!/bin/bash
+
+enable_matrix=false
+session="bookmarks_devservers"
+
+if tmux has-session -t $session >/dev/null 2>&1; then
+  tmux kill-session -t $session
+fi
+
+tmux new -d -s $session
+# sleep 1
+# for i in 3 2 1; do
+#   printf "Starting in $i...\r"
+#   sleep 1
+# done
+
+docker-compose -f development.yml up -d
+# tmux send-keys -t $session:$window 'poetry run python manage.py runserver 0.0.0.0:8000' C-m
+
+window=0
+sleep 1
+tmux rename-window -t $session:$window 'Code'
+tmux send-keys -t $session:$window 'poetry run nvim .' C-m
+
+window=1
+
+tmux new-window -t $session
+tmux rename-window -t $session:$window 'Servers'
+tmux split-window -h -t $session:$window
+tmux split-window -v -t $session:$window
+
+if $enable_matrix; then
+  tmux split-window -v -t $session:$window
+fi
+
+pane=0
+
+sleep 1
+tmux send-keys -t $session:$window.$pane 'poetry run python manage.py runserver 0.0.0.0:8000' C-m
+((pane = pane + 1))
+
+sleep 1
+tmux send-keys -t $session:$window.$pane 'yarn run dev --host 0.0.0.0' C-m
+((pane = pane + 1))
+
+if $enable_matrix; then
+  sleep 1
+  tmux send-keys -t $session:$window.$pane 'unimatrix -a -c red -s96 -f' C-m
+  ((pane = pane + 1))
+fi
+
+sleep 1
+tmux send-keys -t $session:$window.$pane 'poetry run python -m celery --app server worker' C-m
+((pane = pane + 1))
+
+# tmux -2 -CC attach -t $session
+TMUX='' tmux -2 attach -t $session
+
+# After exiting the tmux session
+
+docker-compose -f development.yml stop

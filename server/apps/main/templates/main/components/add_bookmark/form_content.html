@@ -1,0 +1,23 @@
+{% load icon %}
+<div id="add-bookmark-form-content"
+     x-data
+     x-init="$dispatch('load-assist')">
+    <!-- x-data="AddBookmarkLinkAssist" -->
+    {% csrf_token %}
+    {% include "main/components/form/non_field_errors.html" with form=form only %}
+    {% include "main/components/form/input.html" with field=form.link only %}
+    {% block add_bookmark_assist %}
+        <div hx-get="{% url 'main:widget-add-bookmark-assist' %}"
+             hx-include="[name='link']"
+             hx-target="this"
+             hx-trigger="load-assist from:body, keyup changed delay:1000ms from:[name='link']"
+             hx-swap="morph"
+             hx-sync="this:drop"
+             data-loading-states>
+            {% include "main/components/form/input.html" with field=form.title only %}
+            {% include "main/components/form/input.html" with field=form.link_type only %}
+        </div>
+    {% endblock add_bookmark_assist %}
+    {% include "main/components/form/input.html" with field=form.add_to_reading_list only %}
+    {% include './add_to_collections_input.html' with field=form.collections %}
+</div>

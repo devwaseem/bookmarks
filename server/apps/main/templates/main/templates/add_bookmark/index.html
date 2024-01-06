@@ -1,0 +1,28 @@
+{% extends "main/templates/base/base.html" %}
+{% load icon django_vite %}
+{% block extrahead %}
+    {% vite_asset 'js/pages/add_bookmark.ts' %}
+{% endblock extrahead %}
+{% block main %}
+    <div class="p-6 max-w-2xl mx-auto h-screen flex flex-col justify-center">
+        <a href="{% url 'main:explore' %}" class="font-mono text-2xl font-bold">BMRK</a>
+        {% block form %}
+            <form id="add-bookmark-form"
+                  hx-post="{% url 'main:add-bookmark' %}"
+                  hx-target="this"
+                  hx-swap="outerHTML"
+                  hx-sync="this:drop"
+                  class="w-full">
+                <div class="mt-6">{% include "main/components/add_bookmark/form_content.html" %}</div>
+                <div class="mt-6 flex flex-row justify-end">
+                    <button class="btn btn-block">
+                        <span data-loading-class="loading loading-spinner"
+                              data-loading-class-remove="hidden"
+                              class="hidden"></span>
+                        <span>Save</span>
+                    </button>
+                </div>
+            </form>
+        {% endblock form %}
+    </div>
+{% endblock main %}

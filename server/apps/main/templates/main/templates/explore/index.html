@@ -1,0 +1,43 @@
+{% extends "main/templates/base/base.html" %}
+{% load icon django_vite %}
+{% block extrahead %}
+    {% vite_asset 'js/pages/explore.ts' %}
+{% endblock extrahead %}
+{% block main %}
+    <div id="explore-container" class="relative h-screen">
+        <div class="h-screen w-[250px] border-r border-base-300 fixed left-0 bottom-0 top-0">
+            {% include "main/components/sidebar/bookmark_type_selector.html" %}
+        </div>
+        <div class="pl-[250px]">
+            <div class="p-6 max-w-4xl mx-auto">
+                <div class="mt-10 flex flex-col gap-1 cursor-pointer">
+                    <div class="text-2xl font-medium">
+                        {% if explore_view_model.is_collection_mode %}
+                            <span>{{ explore_view_model.collection }}</span>
+                        {% else %}
+                            <span>Reading List</span>
+                        {% endif %}
+                    </div>
+                    <div class="mt-6 mb-4">{% include "./components/filter.html" %}</div>
+                    {% if explore_view_model.no_results_found %}
+                        {% include "./components/empty_state.html" %}
+                    {% else %}
+                        {% if explore_view_model.is_collection_mode and explore_view_model.does_reading_list_bookmarks_exist %}
+                            <div class="mt-4 font-mono text-gray-600 uppercase text-xs">Reading List</div>
+                        {% endif %}
+                        {% for bookmark in explore_view_model.reading_list_bookmark_list %}
+                            {% include "./components/bookmark.html" with bookmark=bookmark only %}
+                        {% endfor %}
+                        {% if explore_view_model.is_collection_mode and explore_view_model.does_collection_bookmarks_exist %}
+                            <div class="mt-4 font-mono text-gray-600 uppercase text-xs">Archived</div>
+                            {% for bookmark in explore_view_model.collection_bookmark_list %}
+                                {% include "./components/bookmark.html" with bookmark=bookmark only %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                    <!-- <div class="text-gray-600">No bookmarks added yet!</div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

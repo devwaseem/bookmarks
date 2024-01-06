@@ -1,0 +1,71 @@
+exclude: /migrations/|/data/
+default_stages: [commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-ast
+      - id: debug-statements
+        language_version: python3.11
+
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.0.272
+    hooks:
+      - id: ruff
+        args: [ --fix ]
+
+
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/Riverside-Healthcare/djLint
+    rev: v1.30.2
+    hooks:
+      - id: djlint-reformat-django
+      - id: djlint-django
+  #
+  # - repo: https://github.com/PyCQA/isort
+  #   rev: 5.12.0
+  #   hooks:
+  #     - id: isort
+  #       args: [--profile, black]
+  # - repo: https://github.com/PyCQA/flake8
+  #   rev: 6.0.0
+  #   hooks:
+  #     - id: flake8
+  #       args: [--config=setup.cfg]
+  # - repo: local
+  #   hooks:
+  #     - id: pylint
+  #       name: pylint
+  #       entry: pylint
+  #       language: system
+  #       types: [python]
+  #       args:
+  #         [
+  #           "-rn", # Only display messages
+  #           "-sn", # Don't display the score
+  #           "--rcfile=.pylintrc", # Link to your config file
+  #       ]
+
+# sets up .pre-commit-ci.yaml to ensure pre-commit dependencies stay up to date
+
+# - repo: https://github.com/sourcery-ai/sourcery
+#   rev: v1.0.2
+#   hooks:
+#   - id: sourcery
+#     # The best way to use Sourcery in a pre-commit hook:
+#     # * review only changed lines:
+#     # * omit the summary
+#     args: [--diff=git diff HEAD, --no-summary]
+ci:
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false

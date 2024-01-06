@@ -1,0 +1,59 @@
+{% load icon %}
+<aside class="px-4 py-6 bg-base-100 h-full flex flex-col">
+    <div class="flex flex-row items-center justify-between">
+        <div class="font-mono text-2xl font-bold">BMRK</div>
+        <a x-data
+           href="{% url 'main:widget-add-bookmark' %}"
+           hx-get="{% url 'main:widget-add-bookmark' %}"
+           hx-target="#modal_container"
+           hx-swap="beforeEnter"
+           @keyup.n.window="if(!document.querySelector(':focus')) $dispatch('click')"
+           class="btn btn-outline btn-sm">
+            {% icon 'plus' width="14" height="14" %}
+            <span>New</span>
+        </a>
+    </div>
+    <!-- <div class="mt-6 pb-6 border-b"> -->
+    <!--     <div class="mt-2 flex flex-col gap-0.5"> -->
+    <!--         <a x-data -->
+    <!--            href="{% url 'main:widget-add-bookmark' %}" -->
+    <!--            hx-get="{% url 'main:widget-add-bookmark' %}" -->
+    <!--            hx-target="#modal_container" -->
+    <!--            hx-swap="beforeEnter" -->
+    <!--            @keyup.n.window="if(!document.querySelector(':focus')) $dispatch('click')" -->
+    <!--            class="px-3 py-2 rounded-lg bg-black text-white flex flex-row gap-2 items-center"> -->
+    <!--             {% icon 'plus' width="14" height="14" %} -->
+    <!--             <span>Add Bookmark</span> -->
+    <!--         </a> -->
+    <!--     </div> -->
+    <!-- </div> -->
+    <div class="mt-6">
+        <div class="flex flex-col gap-0.5">
+            {% url 'main:explore' as explore_url %}
+            <a href="{{ explore_url }}"
+               class="px-3 py-2 rounded-lg flex flex-row gap-2 items-center {% if request.path == explore_url %} bg-base-300 {% else %} hover:bg-base-200 {% endif %}">
+                {% icon 'zap' width="14" height="14" %}
+                <span>Reading list</span>
+            </a>
+        </div>
+    </div>
+    <div class="mt-6">
+        <div class="pl-2 uppercase text-neutral-500 font-medium text-xs flex flex-row items-center justify-between">
+            <div class="font-mono">Collections</div>
+            {% comment %}
+      <a class="btn btn-sm btn-ghost">{% icon 'plus-circle' width="16" height="16" %}</a>
+            {% endcomment %}
+        </div>
+        <div class="mt-2 flex flex-col gap-0.5">
+            {% for collection in sidebar_view_model.collection_list %}
+                <a href="{% url 'main:explore-collection' collection=collection.name %}"
+                   class="px-2 py-2 rounded-lg flex flex-row gap-2 items-center {% if sidebar_view_model.collection == collection.name %} bg-base-300 {% else %} hover:bg-base-200 {% endif %}">
+                    {% comment %}
+                    {% icon 'folder' width="14" height="14" %}
+                    {% endcomment %}
+                    <span>{{ collection }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</aside>

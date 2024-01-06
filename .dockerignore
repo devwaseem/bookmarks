@@ -1,0 +1,94 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+.local/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+node_modules/
+env/
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+.testmondata
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Docker
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+docker/docker-compose.prod.yml
+development.yml
+production.override.yml
+
+# JetBrains
+.idea/
+
+# Cookie cutter
+.cookiecutter_replay
+
+# NVIM
+.null-ls_*
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# Custom
+playground
+data/*
+
+.vim
+.trunk
+.ruff_cache

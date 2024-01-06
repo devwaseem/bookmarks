@@ -1,0 +1,50 @@
+{% load icon %}
+<div x-data="AddToCollectionsInput"
+     data-loading-states
+     @click.outside="onCollectionSearchInputBlurred()">
+    <label class="form-control w-full">
+        <div class="label">
+            <span class="label-text">Add to Collection</span>
+        </div>
+        <div class="relative">
+            <div data-loading-disable
+                 class="relative input input-bordered w-full overflow-hidden">
+                {% icon 'search' width='18' height='18' class="absolute left-2 inset-y-0 h-full" %}
+                <input id="input-tag-search"
+                       type="text"
+                       name="query"
+                       placeholder="Search Collections"
+                       hx-get="{% url 'main:widget-add-bookmark-search-tags' %}"
+                       hx-target="#tags-search-results"
+                       hx-trigger="keyup[target.value.length > 1] changed delay:500ms"
+                       hx-swap="innerHTML"
+                       data-loading-disable="true"
+                       @focus="onCollectionSearchInputFocused()"
+                       x-model="collectionSearchInput"
+                       class="border-0 ring-0 outline-0 absolute left-7 inset-y-0 right-0 focus:border-0 focus:outline-0 focus:ring-0" />
+                {{ field }}
+            </div>
+            <div x-show="shouldShowResults" class="absolute inset-x-0 top-full mt-1">
+                <div id="tags-search-results"></div>
+            </div>
+        </div>
+        {% if field.help_text %}
+            <div class="label">
+                {% if field.help_text %}<span class="label-text-alt">{{ field.help_text }}</span>{% endif %}
+            </div>
+        {% endif %}
+    </label>
+    {% if field.errors %}
+        <div>
+            {% for error in field.errors %}<span class="text-sm text-error">{{ error }}</span>{% endfor %}
+        </div>
+    {% endif %}
+    <div class="mt-4 flex flex-row flex-wrap gap-2">
+        <template x-for="tag in existingCollections">
+            <div class="px-3 py-1 bg-base-200 rounded-full max-w-fit flex flex-row gap-2">
+                <div x-text="tag"></div>
+                <button type="button" @click="removeTag(tag)">{% icon 'x' width="14" height="14" %}</button>
+            </div>
+        </template>
+    </div>
+</div>

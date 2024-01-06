@@ -1,0 +1,31 @@
+{% extends "main/base.html" %}
+{% load icon %}
+{% block main %}
+    <div class="relative">
+        <nav class="p-6 flex flex-row gap-6 items-center justify-between border-b bg-base-100">
+            <div>Bookmarks</div>
+            <div>
+                <div></div>
+            </div>
+            <div></div>
+        </nav>
+        {% comment %}
+        <aside class="fixed inset-y-0 h-screen left-0 w-[250px] ">
+            <nav class="h-screen border-r px-2 py-6">
+                <div class="px-2">Bookmarks</div>
+                <div class="mt-10 flex flex-col gap-0.5">
+                    {% include "main/components/sidebar/sidebar_item.html" with text="Explore" icon='layers' active=True %}
+                    {% include "main/components/sidebar/sidebar_item.html" with text="Archive" icon='folder' active=False %}
+                    {% include "main/components/sidebar/sidebar_item.html" with text="Collections" icon='layers' active=False %}
+                </div>
+            </nav>
+        </aside>
+        {% endcomment %}
+        {% comment %}
+        <div class="pl-[250px] min-h-screen">
+            {% block content %}
+            {% endblock content %}
+        </div>
+        {% endcomment %}
+    </div>
+{% endblock main %}

@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "moduleResolution": "Node",
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "types": [
+      "vite/client"
+    ],
+    "baseUrl": ".",
+        "paths": {
+            "@frontend/*": ["frontend/*"],
+            "@components/*": ["server/apps/main/templates/main/components/*"],
+            "@templates/*": ["server/apps/main/templates/main/templates/*"]
+        }
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.js",
+    "./**/*.d.ts"
+  ]
+}

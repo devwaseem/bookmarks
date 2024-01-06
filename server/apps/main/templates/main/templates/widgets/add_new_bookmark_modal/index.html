@@ -1,0 +1,27 @@
+{% extends "main/components/modal/simple_modal_base.html" %}
+{% load icon %}
+{% block header_title %}
+    Add Bookmark
+{% endblock header_title %}
+{% block modal_extra_classes %}
+    max-w-3xl
+{% endblock modal_extra_classes %}
+{% block content %}
+    <form id="add-bookmark-form"
+          hx-post="{% url 'main:widget-add-bookmark' %}"
+          :hx-target="`#${id}`"
+          hx-swap="outerHTML"
+          hx-sync="this:drop"
+          class="w-full">
+        {% include "main/components/add_bookmark/form_content.html" %}
+        <div class="mt-6 flex flex-row justify-end">
+            <button class="btn btn-block">
+                <span data-loading-class="loading loading-spinner"
+                      data-loading-class-remove="hidden"
+                      class="hidden"></span>
+                <span data-loading-class="hidden">{% icon 'save' width="16" height="16" %}</span>
+                <span>Save</span>
+            </button>
+        </div>
+    </form>
+{% endblock content %}

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+exec celery --app server worker -E -l INFO -Q ${CELERY_QUEUES} --concurrency ${CELERY_CONCURRENCY}

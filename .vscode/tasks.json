@@ -1,0 +1,86 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Vite Dev Server",
+            "type": "shell",
+            "command": "yarn run dev --host 0.0.0.0",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Celery Workers",
+            "type": "shell",
+            "command": "poetry run python -m celery --app server worker -E -l INFO -Q celery,emails",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Pre-commit hook",
+            "type": "shell",
+            "command": "poetry run pre-commit run --all-files",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Django Server",
+            "type": "shell",
+            "command": "poetry run python manage.py runserver 0.0.0.0:8000",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Django Makemigrations",
+            "type": "shell",
+            "command": "poetry run python manage.py makemigrations",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Django Migrate",
+            "type": "shell",
+            "command": "poetry run python manage.py migrate",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "🖥️ Django Shell Plus",
+            "type": "shell",
+            "command": "poetry run python manage.py shell_plus",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "🗄️ Django DB Shell (PSQL)",
+            "type": "shell",
+            "command": "poetry run python manage.py shell_plus",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "📒 Django Notebook",
+            "type": "shell",
+            "command": "poetry run python manage.py shell_plus --notebook --no-browser",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+.waak-toast {
+    transform: translateX(200%) scale(0);
+    transition: all 500ms ease-in;
+    @apply flex flex-row items-center gap-4 overflow-hidden rounded-lg border px-6 py-3;
+}
+
+.waak-toast-error-simple {
+    @apply border-red-500 bg-red-100 text-red-700;
+}
+
+.waak-toast-info-simple {
+    @apply border-primary-500 bg-primary-100 text-primary-700;
+}
+
+.waak-toast-warning-simple {
+    @apply border-yellow-500 bg-yellow-100 text-yellow-700;
+}
+
+.waak-toast-success-simple {
+    @apply border-green-500 bg-green-100 text-green-700;
+}
+
+.waak-toast-show {
+    transform: translateX(0%) scale(1);
+}
+
+.waak-toast-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: currentColor;
+    animation-fill-mode: forwards;
+}

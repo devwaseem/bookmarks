@@ -1,0 +1,59 @@
+{% load icon humanize %}
+<a href="{{ bookmark.link }}"
+   target="{{ bookmark.id }}"
+   x-data="Bookmark"
+   @mouseleave="closeMenu()"
+   class="group px-3 py-2 flex flex-row items-center justify-between rounded-lg hover:bg-base-200">
+    <div class="flex flex-row gap-2 items-center">
+        {% icon bookmark.feather_icon width="12" height="12" class="shrink-0" %}
+        <div class="line-clamp-1" title="{{ bookmark.title }}">{{ bookmark.title }}</div>
+    </div>
+    <div class="shrink-0 ml-2 text-xs text-gray-500 flex flex-row items-center gap-1">
+        {% comment %}
+        <div class="group-hover:hidden">{% icon bookmark.feather_icon width="12" height="12" %}</div>
+        <div class="hidden group-hover:block">{{ bookmark.get_bookmark_type_display }}</div>
+        <div>•</div>
+        {% endcomment %}
+        <div class="ml-1">{{ bookmark.short_link }}</div>
+        <div>•</div>
+        <div>{{ bookmark.created_at|naturaltime }}</div>
+        <div @click.prevent class="relative">
+            <button @click.prevent="openMenu()"
+                    @click.outside="closeMenu()"
+                    class="p-1 rounded opacity-0 group-hover:opacity-100 hover:bg-base-300">
+                {% icon 'more-vertical' width="16" height="16" %}
+            </button>
+            <div x-show="menuOpened"
+                 class="z-10 w-max absolute right-0 top-full text-sm divide-y divide-base-300 bg-base-100 border border-base-300 rounded-lg flex flex-col">
+                <button hx-post="{% url 'main:explore-widget-archive-bookmark' bookmark_id=bookmark.id %}"
+                        hx-include="this"
+                        hx-swap="none"
+                        class="px-4 py-2 w-full text-left text-neutral flex flex-row gap-2 items-center hover:bg-base-200">
+                    <input hidden
+                           name="archive_bookmark"
+                           value="{% if bookmark.archived %}false{% else %}true{% endif %}" />
+                    {% if bookmark.archived %}
+                        <div>{% icon 'bookmark' width="12" height="12" %}</div>
+                        <div>Read Later</div>
+                    {% else %}
+                        <div>{% icon 'check-circle' width="12" height="12" %}</div>
+                        <div>Mark as Read</div>
+                    {% endif %}
+                </button>
+                <button hx-get="{% url 'main:widget-edit-bookmark' bookmark_id=bookmark.id %}"
+                        hx-target="#modal_container"
+                        hx-swap="beforeEnter"
+                        class="px-4 py-2 w-full text-left text-neutral flex flex-row gap-2 items-center hover:bg-base-200">
+                    <div>{% icon 'edit' width="12" height="12" %}</div>
+                    <div>Edit</div>
+                </button>
+                <button hx-post="{% url 'main:explore-widget-delete-bookmark' bookmark_id=bookmark.id %}"
+                        hx-confirm="Are you sure you want to delete the bookmark {{ bookmark.title }}?"
+                        class="px-4 py-2 w-full text-left  text-error flex flex-row gap-2 items-center hover:bg-base-200">
+                    <div>{% icon 'trash' width="12" height="12" %}</div>
+                    <div>Delete</div>
+                </button>
+            </div>
+        </div>
+    </div>
+</a>

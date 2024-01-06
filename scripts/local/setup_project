@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Give execution permissions
+chmod +x ./scripts/local/backup
+chmod +x ./scripts/local/restore
+chmod +x ./scripts/local/up
+chmod +x ./scripts/local/upx
+
+cp env_template.txt .env
+
+# Install python dependencies
+poetry install
+
+# Install node dependencies
+yarn
+
+# Customize the env file before proceeding
+vi .env
+
+if [[ $? -eq 0 ]];
+then
+  docker-compose -f development.yml up -d
+  poetry run python manage.py makemigrations
+  poetry run python manage.py migrate
+  if [[ $? -eq 0 ]];
+  then
+    echo "Setup Complete..."
+  fi
+fi
+
+
+
+
+

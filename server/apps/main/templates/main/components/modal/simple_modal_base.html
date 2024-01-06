@@ -1,0 +1,43 @@
+<div x-data="{ id: $id('modal') }"
+     :id="id"
+     data-loading-states
+     class="p-6 absolute inset-0 w-screen h-screen bg-black/20 backdrop-blur-sm z-[9999] flex flex-row items-center justify-center">
+    {% block modal %}
+        <div @click.outside="closeModal(id)"
+             class="container bg-base-100 min-w-xl rounded-xl {% block modal_extra_classes %}max-w-xl{% endblock modal_extra_classes %}">
+            <!-- Header -->
+            {% block header %}
+                <div class="p-6 flex flex-row items-center justify-between border-b">
+                    <div class="font-medium text-xl ">
+                        {% block header_title %}{% endblock %}
+                    </div>
+                    <button @click="closeModal(id)" class="btn btn-ghost btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="20"
+                             height="20"
+                             viewBox="0 0 24 24"
+                             stroke-width="2"
+                             stroke="currentColor"
+                             fill="none"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M18 6l-12 12" />
+                            <path d="M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="w-full">{% include "main/components/loaders/htmx_indeterminate_loader.html" %}</div>
+            {% endblock %}
+            <!-- Content -->
+            {% block content_root %}
+                <div class="p-6">
+                    {% block content %}
+                        <p>Thank you!</p>
+                        <p>You will also receive a copy of the email.</p>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+    {% endblock %}
+</div>

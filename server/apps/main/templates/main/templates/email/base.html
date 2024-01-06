@@ -1,0 +1,34 @@
+
+{% load mjml static %}
+{% mjml %}
+<mjml>
+  <mj-head>
+    <mj-font name="DM Serif" href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,500;1,400&family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&family=DM+Serif+Text:ital@0;1&display=swap"></mj-font>
+    <mj-font name="DM Serif" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Serif+Text:ital@0;1&display=swap"></mj-font>
+    <mj-attributes>
+      <mj-all padding="0" color="" line-height="1.6" font-family="'DM Serif', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'" />
+    </mj-attributes>
+    <mj-style>
+      a {
+        color: #7755FD;
+	      text-decoration: none;
+      }
+    </mj-style>
+    {% block extrahead %}
+    {% endblock %}
+  </mj-head>
+  <mj-body background-color="#F3F4F6">
+    <mj-section padding="24px">
+    </mj-section>
+    <mj-section background-color="#FFFFFF" padding="24px" padding-bottom="12px">
+      <mj-column>
+        <mj-spacer height="8px"></mj-spacer>
+        <mj-image align="left" width="120px" src="{{base_url}}{{ logo_light_url }}"></mj-image>
+      </mj-column>
+    </mj-section>
+    {% block content %}
+    {% endblock %}
+  </mj-body>
+</mjml>
+{% endmjml %}
+

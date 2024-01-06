@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+
+exec celery \
+    --app server \
+    -b "${CELERY_BROKER_URL}" \
+    --persistent=True --db="flower_db" \
+    --max_tasks=1000 \
+    flower

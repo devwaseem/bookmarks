@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ ! -d "data" ];
+ then
+  echo "data folder doesn't exists. Please make sure you are running this script from the project root folder" >&2
+  exit 1
+fi
+
+container_id=$(docker ps -aqf "name=^bookmarks_local_postgres$")
+docker exec -it "$container_id" pg_dump -U bookmarks > data/local_backup.sql
+if [[ $? -eq 0 ]]
+then
+echo "Local Backup successful"
+else
+echo "Local Backup Failed"
+fi

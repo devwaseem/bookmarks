@@ -1,0 +1,18 @@
+exclude = [
+  ".git",
+  "__pycache__",
+  ".venv",
+  ".eggs",
+  "*.egg",
+  ".npm",
+  ".pytest_cache",
+  ".cache",
+  "manage.py",
+  ".local",
+  "*/migrations/*.py",
+]
+
+line-length = 120
+
+[per-file-ignores]
+"*/test_*.py" = ["E501"]

@@ -1,0 +1,44 @@
+{% load widget_tweaks %}
+<div class="mb-4">
+    <label class="form-control w-full">
+        <div class="label">
+            {% if field.field.widget.input_type != 'checkbox' %}
+                <span class="label-text">{{ field.label }}</span>
+                {% if not field.field.required %}<span class="label-text-alt">Optional</span>{% endif %}
+            {% endif %}
+        </div>
+        {% block input_field %}
+            {% if field.field.widget.input_type == 'select' %}
+                {% render_field field|add_error_class:"select-error" class="select select-bordered w-full" data-loading-disable="true" data-loading-class="cursor-wait" value=value %}
+            {% elif field.field.widget.input_type == "checkbox" %}
+                <div class="flex flex-row items-center gap-2">
+                    {% render_field field|add_error_class:"checkbox-error" class="checkbox checkbox-bordered" data-loading-disable="true" data-loading-class="cursor-wait" %}
+                    <span class="label-text">{{ field.label }}</span>
+                </div>
+            {% else %}
+                {% render_field field|add_error_class:"input-error" class="input input-bordered w-full" data-loading-disable="true" data-loading-class="cursor-wait" value=value %}
+            {% endif %}
+            {% comment %}
+        {% if field.field.widget.input_type == 'select' %}
+            <select id="{% if id %}{{ id }}{% else %}{{ field.id_for_label }}{% endif %}" name="{{ field.name }}" {% include "django/forms/widgets/attrs.html" with widget=field.field.widget only %} data-loading-disable="true" data-loading-class="cursor-wait" class="select select-bordered w-full {% if field.errors %}select-error{% endif %}">
+                {% for value, label in field.field.choices %}
+                    <option {% if field.value == value %}selected{% endif %} value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        {% else %}
+            <input id="{% if id %}{{ id }}{% else %}{{ field.id_for_label }}{% endif %}" type="{{ field.type }}" name="{{ field.name }}" {% if field.value != None %}value="{{ field.value|stringformat:'s' }}"{% endif %} {% include "django/forms/widgets/attrs.html" with widget=field.field.widget only %} data-loading-disable="true" data-loading-class="cursor-wait" class="input input-bordered w-full {% if field.errors %}input-error{% endif %}" />
+        {% endif %}
+            {% endcomment %}
+        {% endblock %}
+        {% if field.help_text %}
+            <div class="label">
+                {% if field.help_text %}<span class="label-text-alt">{{ field.help_text }}</span>{% endif %}
+            </div>
+        {% endif %}
+    </label>
+    {% if field.errors %}
+        <div>
+            {% for error in field.errors %}<span class="text-sm text-error">{{ error }}</span>{% endfor %}
+        </div>
+    {% endif %}
+</div>

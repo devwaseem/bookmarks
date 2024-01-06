@@ -1,0 +1,19 @@
+/* SITE INFORMATION */
+/* TODO: FILL  */
+Site name:
+Site URL:   ...
+LinkedIn:   ...
+Twitter:    ...
+Instagram:  ...
+Facebook:   ...
+Location:   ...
+Built with: HTML, CSS, Tailwind CSS, Javascript, Python, Django, Alpine.js, HTMX, MJML, Docker
+Launched:   2022
+
+
+/* BUILT BY */
+
+Company:    WAAK Labs
+Site:       waaklabs.com
+Twitter:    https://twitter.com/waaklabs
+Location:   Chennai, India.
