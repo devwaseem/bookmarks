@@ -47,7 +47,9 @@ def extract_title_from_url(url: str):
                 return title_tag.text.strip()
 
         else:
-            logger.error(f"Unable to fetch content from {url}. Status code: {response.status_code}")
+            logger.error(
+                f"Unable to fetch content from {url}. Status code: {response.status_code}"
+            )
 
     except Exception as e:
         logger.error(f"{e}")

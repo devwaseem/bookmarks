@@ -1,4 +1,3 @@
-
 from allauth.account.adapter import DefaultAccountAdapter
 
 from server.apps.main.context_processors import get_site_data

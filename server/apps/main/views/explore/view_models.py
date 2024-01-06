@@ -94,4 +94,7 @@ class ExploreViewModel:
         )
 
     def no_results_found(self) -> bool:
-        return not (self.does_reading_list_bookmarks_exist() or self.does_collection_bookmarks_exist())
+        return not (
+            self.does_reading_list_bookmarks_exist()
+            or self.does_collection_bookmarks_exist()
+        )

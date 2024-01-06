@@ -8,7 +8,9 @@ from django_htmx.http import HttpResponseClientRedirect, trigger_client_event
 
 def add_messages_to_htmx(request, response):
     storage = get_messages(request)
-    messages = [{"message": message.message, "tags": message.tags} for message in storage]
+    messages = [
+        {"message": message.message, "tags": message.tags} for message in storage
+    ]
     trigger_client_event(response, "notifyGlobal", {"data": messages})
 
 
@@ -19,7 +21,9 @@ class ToastType(StrEnum):
     SUCCESS = "SUCCESS"
 
 
-def htmx_show_toast(*, response: HttpResponse, message: str, type: ToastType, duration=None):
+def htmx_show_toast(
+    *, response: HttpResponse, message: str, type: ToastType, duration=None
+):
     trigger_client_event(
         response=response,
         name="toast",

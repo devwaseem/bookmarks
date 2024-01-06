@@ -29,7 +29,7 @@
             <input id="{% if id %}{{ id }}{% else %}{{ field.id_for_label }}{% endif %}" type="{{ field.type }}" name="{{ field.name }}" {% if field.value != None %}value="{{ field.value|stringformat:'s' }}"{% endif %} {% include "django/forms/widgets/attrs.html" with widget=field.field.widget only %} data-loading-disable="true" data-loading-class="cursor-wait" class="input input-bordered w-full {% if field.errors %}input-error{% endif %}" />
         {% endif %}
             {% endcomment %}
-        {% endblock %}
+        {% endblock input_field %}
         {% if field.help_text %}
             <div class="label">
                 {% if field.help_text %}<span class="label-text-alt">{{ field.help_text }}</span>{% endif %}

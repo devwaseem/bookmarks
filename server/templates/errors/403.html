@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <title>403 Forbidden</title>
-</head>
-
-<body>
-  403 Forbidden
-
-</body>
-
-</html>
+{% extends "main/templates/base/base.html" %}
+{% load icon django_vite %}
+{% block extrahead %}
+    {% vite_asset 'js/pages/explore.ts' %}
+{% endblock extrahead %}
+{% block main %}
+    <div>403</div>
+{% endblock main %}

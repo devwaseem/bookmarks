@@ -14,7 +14,10 @@ def create_bookmark(
 ):
     with transaction.atomic():
         BookmarkCollection.objects.bulk_create(
-            [BookmarkCollection(created_by=user, name=collection) for collection in collections],
+            [
+                BookmarkCollection(created_by=user, name=collection)
+                for collection in collections
+            ],
             ignore_conflicts=True,
         )
 
@@ -46,7 +49,10 @@ def update_bookmark(
 ):
     with transaction.atomic():
         BookmarkCollection.objects.bulk_create(
-            [BookmarkCollection(created_by=user, name=collection) for collection in collections],
+            [
+                BookmarkCollection(created_by=user, name=collection)
+                for collection in collections
+            ],
             ignore_conflicts=True,
         )
 

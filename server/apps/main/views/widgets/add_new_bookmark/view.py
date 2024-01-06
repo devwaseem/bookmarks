@@ -6,7 +6,11 @@ from django.views.generic import View
 from render_block import render_block_to_string
 from server.apps.main.forms.bookmarks import AddBookmarkWidgetForm
 
-from server.apps.main.helpers.htmx import HTMXLoginRequiredMixin, ToastType, htmx_show_toast
+from server.apps.main.helpers.htmx import (
+    HTMXLoginRequiredMixin,
+    ToastType,
+    htmx_show_toast,
+)
 from server.apps.main.helpers.url import is_valid_url
 from server.apps.main.models.bookmark import BookmarkCollection, LinkType
 from server.apps.main.models.user import User

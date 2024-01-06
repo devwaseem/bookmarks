@@ -8,13 +8,24 @@ from django.views.generic import View
 from django_htmx.http import HttpResponseClientRefresh
 from render_block import render_block_to_string
 import structlog
-from server.apps.main.forms.bookmarks import AddBookmarkWidgetForm, ArchiveBookmarkWidgetForm
-from server.apps.main.helpers.htmx import HTMXLoginRequiredMixin, ToastType, htmx_show_toast
+from server.apps.main.forms.bookmarks import (
+    AddBookmarkWidgetForm,
+    ArchiveBookmarkWidgetForm,
+)
+from server.apps.main.helpers.htmx import (
+    HTMXLoginRequiredMixin,
+    ToastType,
+    htmx_show_toast,
+)
 from server.apps.main.models.bookmark import Bookmark, BookmarkCollection, LinkType
 from server.apps.main.models.user import User
 from server.apps.main.services.bookmark import update_bookmark
 
-from server.apps.main.views.explore.view_models import ExploreViewModel, SidebarViewModel, SortType
+from server.apps.main.views.explore.view_models import (
+    ExploreViewModel,
+    SidebarViewModel,
+    SortType,
+)
 
 
 logger = structlog.get_logger(__name__)
@@ -84,7 +95,6 @@ class ArchiveBookmarkWidget(HTMXLoginRequiredMixin, View):
         )
         form = ArchiveBookmarkWidgetForm(request.POST)
         if not form.is_valid():
-            breakpoint()
             response = HttpResponse("", status=400)
             logger.error(form.errors)
             return response

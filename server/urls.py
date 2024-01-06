@@ -34,7 +34,9 @@ def handler404(request: HttpRequest, *args, **kwargs) -> HttpResponse:  # noqa
     return render(request, "errors/404.html", status=404)
 
 
-def handler403(request: HttpRequest, exception: Exception | None = None) -> HttpResponse:  # noqa
+def handler403(
+    request: HttpRequest, exception: Exception | None = None
+) -> HttpResponse:  # noqa
     if isinstance(exception, Ratelimited):
         return HttpResponse("Sorry you are blocked", status=429)
     return render(request, "errors/403.html", status=403)

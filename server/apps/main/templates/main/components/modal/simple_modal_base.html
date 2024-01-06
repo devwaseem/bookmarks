@@ -9,7 +9,8 @@
             {% block header %}
                 <div class="p-6 flex flex-row items-center justify-between border-b">
                     <div class="font-medium text-xl ">
-                        {% block header_title %}{% endblock %}
+                        {% block header_title %}
+                        {% endblock header_title %}
                     </div>
                     <button @click="closeModal(id)" class="btn btn-ghost btn-sm">
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -28,16 +29,16 @@
                     </button>
                 </div>
                 <div class="w-full">{% include "main/components/loaders/htmx_indeterminate_loader.html" %}</div>
-            {% endblock %}
+            {% endblock header %}
             <!-- Content -->
             {% block content_root %}
                 <div class="p-6">
                     {% block content %}
                         <p>Thank you!</p>
                         <p>You will also receive a copy of the email.</p>
-                    {% endblock %}
+                    {% endblock content %}
                 </div>
-            {% endblock %}
+            {% endblock content_root %}
         </div>
-    {% endblock %}
+    {% endblock modal %}
 </div>
