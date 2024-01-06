@@ -1,4 +1,4 @@
-FROM python:3.11.2-slim-buster
+FROM python:3.11.5-bullseye
 
 ARG APP_HOME=/app
 ARG BUILD_ENVIRONMENT=production
@@ -60,7 +60,8 @@ RUN yarn install
 
 COPY --chown=web:web . ${APP_HOME}/
 
-RUN yarn run build && rm -rf node_modules
+RUN yarn run build
+RUN rm -rf node_modules
 
 COPY --chown=web:web ./compose/production/app/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
