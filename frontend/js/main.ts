@@ -13,6 +13,7 @@ import { $byId, openLinkInNewWindow } from './utils';
 // import "htmx.org"; <- HTMX doesn't support bundling properly, so include htmx via script before this file
 import 'htmx.org/dist/ext/alpine-morph.js';
 import 'htmx.org/dist/ext/loading-states.js';
+import 'htmx.org/dist/ext/preload.js';
 import 'htmx.org/dist/ext/morphdom-swap';
 
 import Toast, { ToastType } from '@components/toast/toast';

@@ -30,10 +30,10 @@ common_headers = {
 
 def is_url_active(url: str):
     try:
-        response = requests.head(
+        response = requests.get(
             url,
             timeout=10,
-            headers=common_headers,
+            # headers=common_headers,
         )
         if 200 <= response.status_code < 400:
             return True
@@ -41,8 +41,8 @@ def is_url_active(url: str):
     except Timeout:
         return True  # if timeout, assume it exists. We would want to save thishtmx
 
-    except Exception:
-        pass
+    except Exception as error:
+        logger.error(error)
 
     return False
 

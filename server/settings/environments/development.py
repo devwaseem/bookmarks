@@ -74,6 +74,7 @@ DJANGO_VITE_DEV_SERVER_PORT = 5173
 CSP_DEFAULT_SRC += (  # type: ignore[assignment]
     f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}",
     f"{DJANGO_VITE_DEV_SERVER_HOST}:{DJANGO_VITE_DEV_SERVER_PORT}",
+    f"ws://localhost:{DJANGO_VITE_DEV_SERVER_PORT}",
     f"ws://{DJANGO_VITE_DEV_SERVER_HOST}:{DJANGO_VITE_DEV_SERVER_PORT}",
 )
 CSP_SCRIPT_SRC += (  # type: ignore[assignment]
@@ -89,6 +90,7 @@ CSP_STYLE_SRC += (
 CSP_CONNECT_SRC += (  # type: ignore[assignment]
     f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}",
     f"{DJANGO_VITE_DEV_SERVER_HOST}:{DJANGO_VITE_DEV_SERVER_PORT}",
+    f"ws://localhost:{DJANGO_VITE_DEV_SERVER_PORT}",
     f"ws://{DJANGO_VITE_DEV_SERVER_HOST}:{DJANGO_VITE_DEV_SERVER_PORT}",
 )
 
