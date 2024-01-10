@@ -1,4 +1,5 @@
 {% load icon %}
+{% url 'main:widget-add-bookmark-search-tags' as search_tags_url %}
 <div x-data="AddToCollectionsInput"
      data-loading-states
      @click.outside="onCollectionSearchInputBlurred()">
@@ -8,19 +9,28 @@
         </div>
         <div class="relative">
             <div data-loading-disable
+                 data-loading-path="{{ form_url }}"
+                 data-loading-class="input-disabled"
                  class="relative input input-bordered w-full overflow-hidden">
-                {% icon 'search' width='18' height='18' class="absolute left-2 inset-y-0 h-full" %}
+                <div data-loading-path="{{ search_tags_url }}"
+                     class="absolute left-2 inset-y-0 h-full flex items-center justify-center">
+                    <span data-loading-class="hidden">{% icon 'search' width='18' height='18' %}</span>
+                    <span data-loading-class-remove="hidden"
+                          class="hidden loading loading-spinner"></span>
+                </div>
                 <input id="input-tag-search"
                        type="text"
                        name="query"
                        placeholder="Search Collections"
-                       hx-get="{% url 'main:widget-add-bookmark-search-tags' %}"
+                       hx-get="{{ search_tags_url }}"
                        hx-target="#tags-search-results"
-                       hx-trigger="keyup[target.value.length > 1] changed delay:500ms"
+                       hx-trigger="keyup[target.value.length > 1] changed delay:700ms"
                        hx-swap="innerHTML"
+                       data-loading-path="{{ form_url }}"
                        data-loading-disable="true"
                        @focus="onCollectionSearchInputFocused()"
                        x-model="collectionSearchInput"
+                       data-loading-class="input-disabled"
                        class="border-0 ring-0 outline-0 absolute left-7 inset-y-0 right-0 focus:border-0 focus:outline-0 focus:ring-0" />
                 {{ field }}
             </div>

@@ -7,13 +7,14 @@
     max-w-3xl
 {% endblock modal_extra_classes %}
 {% block content %}
+    {% url 'main:widget-add-bookmark' as add_bookmark_url %}
     <form id="add-bookmark-form"
-          hx-post="{% url 'main:widget-add-bookmark' %}"
+          hx-post="{{ add_bookmark_url }}"
           :hx-target="`#${id}`"
           hx-swap="outerHTML"
           hx-sync="this:drop"
           class="w-full">
-        {% include "main/components/add_bookmark/form_content.html" %}
+        {% include "main/components/add_bookmark/form_content.html" with form_url=add_bookmark_url %}
         <div class="mt-6 flex flex-row justify-end">
             <button class="btn btn-block">
                 <span data-loading-class="loading loading-spinner"

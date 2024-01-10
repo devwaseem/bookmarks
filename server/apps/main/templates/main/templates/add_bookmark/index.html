@@ -7,13 +7,14 @@
     <div class="p-6 max-w-2xl mx-auto h-screen flex flex-col justify-center">
         <a href="{% url 'main:explore' %}" class="font-mono text-2xl font-bold">BMRK</a>
         {% block form %}
+            {% url 'main:add-bookmark' as add_bookmark_url %}
             <form id="add-bookmark-form"
-                  hx-post="{% url 'main:add-bookmark' %}"
+                  hx-post="{{ add_bookmark_url }}"
                   hx-target="this"
                   hx-swap="outerHTML"
                   hx-sync="this:drop"
                   class="w-full">
-                <div class="mt-6">{% include "main/components/add_bookmark/form_content.html" %}</div>
+                <div class="mt-6">{% include "main/components/add_bookmark/form_content.html" with form_url=add_bookmark_url %}</div>
                 <div class="mt-6 flex flex-row justify-end">
                     <button class="btn btn-block">
                         <span data-loading-class="loading loading-spinner"
