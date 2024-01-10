@@ -22,10 +22,19 @@ domain_link_types = {
 
 logger = structlog.get_logger()
 
+common_headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"
+}
+
 
 def is_url_active(url: str):
     try:
-        response = requests.head(url, timeout=10)
+        response = requests.head(
+            url,
+            timeout=10,
+            headers=common_headers,
+        )
         if 200 <= response.status_code < 400:
             return True
 
@@ -40,7 +49,11 @@ def is_url_active(url: str):
 
 def extract_title_from_url(url: str):
     try:
-        response = requests.get(url, timeout=15)
+        response = requests.get(
+            url,
+            timeout=15,
+            headers=common_headers,
+        )
 
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, "html.parser")
