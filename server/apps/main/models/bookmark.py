@@ -35,6 +35,7 @@ class LinkType(models.TextChoices):
     LINK = "LINK", "Link"
     EMAIL = "EMAIL", "Email"
     PERSON = "PERSON", "Person"
+    BOOK = "BOOK", "Book"
 
 
 class Bookmark(TimestampedModel, BaseUUIDModel):
@@ -67,7 +68,7 @@ class Bookmark(TimestampedModel, BaseUUIDModel):
     def feather_icon(self):
         match self.link_type:
             case LinkType.ARTICLE:
-                return "book"
+                return "file-text"
             case LinkType.VIDEO:
                 return "video"
             case LinkType.SOCIAL_POST:
@@ -78,3 +79,9 @@ class Bookmark(TimestampedModel, BaseUUIDModel):
                 return "mail"
             case LinkType.PERSON:
                 return "user"
+            case LinkType.BOOK:
+                return "book"
+            case _:
+                raise NotImplementedError(
+                    f"feather_icon not implemented for link type {self.link_type}"
+                )
