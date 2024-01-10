@@ -8,11 +8,8 @@ from server.settings.components.common import (
 from env import Env
 from server.settings.components.csp import (
     CSP_CONNECT_SRC,
-    CSP_FONT_SRC,
     CSP_IMG_SRC,
     CSP_MEDIA_SRC,
-    CSP_SCRIPT_SRC,
-    CSP_STYLE_SRC,
 )
 
 DEBUG = False
@@ -58,21 +55,21 @@ DJANGO_VITE["default"]["manifest_path"] = DJANGO_VITE_ASSETS_PATH / "manifest.js
 
 # Configure CSP to work with AWS s3
 
-CSP_SCRIPT_SRC += (STATIC_URL,)
+# CSP_SCRIPT_SRC += (STATIC_URL,)
 CSP_CONNECT_SRC += (
-    STATIC_URL,
+    # STATIC_URL,
     MEDIA_URL,
 )
 CSP_MEDIA_SRC += (
-    STATIC_URL,
+    # STATIC_URL,
     MEDIA_URL,
 )
-CSP_FONT_SRC += (STATIC_URL,)
+# CSP_FONT_SRC += (STATIC_URL,)
 CSP_IMG_SRC += (
-    STATIC_URL,
+    # STATIC_URL,
     MEDIA_URL,
 )
-CSP_STYLE_SRC += (STATIC_URL,)
+# CSP_STYLE_SRC += (STATIC_URL,)
 
 # Logging
 # LOGGING["handlers"].update(  # type: ignore[attr-defined]

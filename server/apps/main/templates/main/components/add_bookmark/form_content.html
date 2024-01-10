@@ -1,7 +1,7 @@
 {% load icon %}
 <div id="add-bookmark-form-content"
      x-data
-     x-init="$dispatch('load-assist')">
+     x-init="$nextTick(() => $dispatch('load-assist'))">
     <!-- x-data="AddBookmarkLinkAssist" -->
     {% csrf_token %}
     {% include "main/components/form/non_field_errors.html" with form=form only %}
@@ -10,7 +10,7 @@
         <div hx-get="{% url 'main:widget-add-bookmark-assist' %}"
              hx-include="[name='link']"
              hx-target="this"
-             hx-trigger="load-assist from:body, keyup changed delay:1000ms from:[name='link']"
+             hx-trigger="load-assist from:#add-bookmark-form-content, keyup changed delay:1000ms from:[name='link']"
              hx-swap="morph"
              hx-sync="this:drop"
              data-loading-states>
