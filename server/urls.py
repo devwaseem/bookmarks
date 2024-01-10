@@ -66,10 +66,7 @@ urlpatterns = [
             content_type="text/plain",
         ),
     ),
-] + static(  # noqa
-    settings.STATIC_URL,  # type: ignore
-    document_root=settings.STATIC_ROOT,
-)
+]
 
 
 if settings.DEBUG:  # pragma: no cover
@@ -83,5 +80,12 @@ if settings.DEBUG:  # pragma: no cover
         path("__debug__/", include(debug_toolbar.urls)),
         *urlpatterns,
         # Serving media files in development only:
-        *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
+        *static(  # noqa
+            settings.STATIC_URL,  # type: ignore
+            document_root=settings.STATIC_ROOT,
+        ),
+        *static(
+            settings.MEDIA_URL,
+            document_root=settings.MEDIA_ROOT,
+        ),
     ]

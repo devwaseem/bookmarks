@@ -43,6 +43,11 @@ STATIC_HOST = Env("DJANGO_STATIC_HOST", str, "")
 STATIC_URL = STATIC_HOST + "/static/"
 STATIC_ROOT = "/var/www/static"
 
+STORAGES["staticfiles"]["OPTIONS"] = {
+    "location": STATIC_ROOT,
+    "base_url": STATIC_URL,
+}
+
 
 MEDIA_URL = STORAGES["default"]["OPTIONS"]["base_url"]
 
