@@ -4,6 +4,7 @@ from django.http.request import HttpRequest
 from django.shortcuts import render
 from django.views.generic import View
 from render_block import render_block_to_string
+import structlog
 from server.apps.main.forms.bookmarks import AddBookmarkWidgetForm
 
 from server.apps.main.helpers.htmx import (
@@ -16,6 +17,8 @@ from server.apps.main.models.bookmark import BookmarkCollection, LinkType
 from server.apps.main.models.user import User
 from server.apps.main.services.bookmark import create_bookmark
 from server.apps.main.services.url import extract_title_from_url, guess_link_type
+
+logger = structlog.get_logger(__name__)
 
 
 class AddBookmarkModalWidgetView(HTMXLoginRequiredMixin, View):
@@ -82,6 +85,8 @@ class AddBookmarkLinkAssistWidgetview(HTMXLoginRequiredMixin, View):
                         "link_type": link_type,
                     }
                 )
+            else:
+                logger.warning(f"Invalid Link: {link}")
 
         return HttpResponse(
             render_block_to_string(

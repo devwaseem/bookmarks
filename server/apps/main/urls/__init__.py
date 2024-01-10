@@ -1,4 +1,5 @@
 from django.urls import path, re_path
+from server.apps.main.constants import REGEX_URL
 
 from server.apps.main.views.explore.views import (
     ArchiveBookmarkWidget,
@@ -41,7 +42,7 @@ widget_urlpatterns = [
 urlpatterns = [
     *widget_urlpatterns,
     re_path(
-        r"(?P<link>^((https?:\/\/)?((\w+\.)?\w+\.\w+)|([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+))(\/.*)?$)",
+        f"(?P<link>{REGEX_URL})",
         AddBookmarkView.as_view(),
         name="add-bookmark",
     ),
