@@ -39,7 +39,9 @@
     </head>
     <body data-csrf-token="{{ csrf_token }}"
           class="overflow-y-scroll leading-normal tracking-normal flex flex-col"
+          {% comment %}
           hx-boost="true"
+          {% endcomment %}
           hx-ext="get-csrf,loading-states{% if DEBUG %},debug{% endif %}">
         {% block navbar %}
         {% endblock navbar %}
