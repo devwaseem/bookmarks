@@ -1,5 +1,10 @@
 from server.settings.components.logging import LOGGING
-from server.settings.components.common import INSTALLED_APPS, STORAGES, DJANGO_VITE
+from server.settings.components.common import (
+    DJANGO_VITE_ASSETS_PATH,
+    INSTALLED_APPS,
+    STORAGES,
+    DJANGO_VITE,
+)
 from env import Env
 from server.settings.components.csp import (
     CSP_CONNECT_SRC,
@@ -44,7 +49,7 @@ MEDIA_URL = STORAGES["default"]["OPTIONS"]["base_url"]
 
 # Django Vite
 DJANGO_VITE["default"]["dev_mode"] = False
-# DJANGO_VITE_MANIFEST_PATH = DJANGO_VITE_ASSETS_PATH / "manifest.json"
+DJANGO_VITE["default"]["manifest_path"] = DJANGO_VITE_ASSETS_PATH / "manifest.json"
 
 # Configure CSP to work with AWS s3
 
