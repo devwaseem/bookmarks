@@ -25,7 +25,7 @@ logger = structlog.get_logger()
 
 def is_url_active(url: str):
     try:
-        response = requests.head(url, timeout=30)
+        response = requests.head(url, timeout=10)
         if 200 <= response.status_code < 400:
             return True
 
@@ -40,7 +40,7 @@ def is_url_active(url: str):
 
 def extract_title_from_url(url: str):
     try:
-        response = requests.get(url, timeout=30)
+        response = requests.get(url, timeout=15)
 
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, "html.parser")
