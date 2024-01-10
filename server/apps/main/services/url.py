@@ -39,7 +39,7 @@ def is_url_active(url: str):
             return True
 
     except Timeout:
-        return True  # if timeout, assume it exists. We would want to save this
+        return True  # if timeout, assume it exists. We would want to save thishtmx
 
     except Exception:
         pass
